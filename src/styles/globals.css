@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-dark-2 {
+  background-color: #1f2123;
+}
+
+.h-layout {
+  /* height: 577px; */
+  height: 93vh;
+}
+.h-header {
+  height: 10%;
+}
+.h-create-form {
+  height: 90%;
+}
+.h-inputs {
+  height: 18%;
+}
+.h-goal {
+  height: 72%;
+}
+
+.h-generating-button {
+  height: 10%;
+}
+
+/* .mantine-Switch-label {
+  color: #7a73f3;
+} */
+
+/* .mantine-TextInput-input:active {
+  border: #7a73f3;
+} */
