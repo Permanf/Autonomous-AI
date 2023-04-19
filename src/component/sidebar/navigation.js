@@ -11,19 +11,19 @@ export const navigation = ({ lang }) => {
     {
       // label: translations[lang]?.dashboard,
       label: "Marketing Assistant",
-      link: "/news",
+      link: "/",
       icon: <FileText />,
     },
     {
       // label: translations[lang]?.dashboard,
       label: "Sales Assistant",
-      link: "/sliders",
+      link: "/",
       icon: <FileText />,
     },
     {
       // label: translations[lang]?.dashboard,
       label: "Content Creator",
-      link: "/adminstrators",
+      link: "/",
       icon: <FileText />,
     },
   ];
