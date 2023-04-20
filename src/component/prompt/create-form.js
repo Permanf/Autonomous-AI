@@ -17,7 +17,7 @@ const useStyles = createStyles((theme) => ({
 
 const CreateForm = () => {
   const { classes } = useStyles();
-  const theme = useMantineTheme();
+  // const theme = useMantineTheme();
 
   const goals = [
     {
@@ -113,7 +113,7 @@ const CreateForm = () => {
       <div className="w-full h-generating-button  flex items-end">
         <Button
           color="indigo"
-          className="w-full bg-gradient-to-r from-indigo-400 to-indigo-600"
+          className="w-full bg-gradient-to-r from-violet-400 to-violet-500"
         >
           <IconFlare size={22} className="mr-2" />
           Start generating magic

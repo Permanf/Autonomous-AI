@@ -20,7 +20,36 @@ export default function App(props) {
         theme={{
           colorScheme: "dark",
           fontFamily: "Inter",
+          components: {
+            Input: {
+              styles: (theme) => ({
+                input: {
+                  "&:focus-within": {
+                    borderColor: theme.colors.violet[7],
+                  },
+                },
+              }),
+            },
+          },
         }}
+        // theme={{
+        //   components: {
+        //     InputWrapper: {
+        //       styles: (theme) => ({
+        //         label: {
+        //           backgroundColor:
+        //             theme.colorScheme === 'dark' ? 'rgba(255, 255, 255, .1)' : 'rgba(0, 0, 0, .1)',
+        //         },
+        //       }),
+        //     },
+
+        //     Input: {
+        //       styles: (theme) => ({
+        //         input: { borderColor: theme.colors.violet[theme.fn.primaryShade()] },
+        //       }),
+        //     },
+        //   },
+        // }}
       >
         <Component {...pageProps} />
       </MantineProvider>

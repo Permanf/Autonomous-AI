@@ -97,9 +97,12 @@ const Sidebar = ({ opened, setOpened, lang, ...rest }) => {
           >
             A
           </ThemeIcon>
-          <h3 className="font-extrabold text-transparent text-xl bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-600 first-letter:uppercase">
+          <Link
+            href="/"
+            className="font-extrabold text-transparent text-xl bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-600 first-letter:uppercase"
+          >
             Autonomous AI
-          </h3>
+          </Link>
           {/* <Code sx={{ fontWeight: 700 }}>v1.0.0</Code> */}
           <MediaQuery largerThan="sm" styles={{ display: "none" }}>
             <Burger
@@ -116,7 +119,7 @@ const Sidebar = ({ opened, setOpened, lang, ...rest }) => {
         <Button
           leftIcon={<IconPlus size="1rem" />}
           color="indigo"
-          className="w-full mt-6 bg-gradient-to-r from-indigo-400 to-indigo-700"
+          className="w-full mt-6 bg-gradient-to-r from-violet-400 to-violet-500"
         >
           Create new agent
         </Button>

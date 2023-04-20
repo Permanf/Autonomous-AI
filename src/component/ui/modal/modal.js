@@ -47,7 +47,9 @@ function ModalKey({ modal_opened, close }) {
             withAsterisk
             radius="md"
             styles={{
-              input: { paddingLeft: "80px" },
+              input: {
+                paddingLeft: "80px",
+              },
             }}
           />
           {/* <div className="bg-gray-200 absolute left-0 top-0 w-14">

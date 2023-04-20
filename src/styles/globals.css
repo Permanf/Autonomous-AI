@@ -27,6 +27,14 @@
   height: 10%;
 }
 
+.h-description {
+  height: 15%;
+}
+
+.h-thinking {
+  height: 70%;
+}
+
 /* .mantine-Switch-label {
   color: #7a73f3;
 } */
