@@ -14,6 +14,7 @@ import {
   useMantineTheme,
   Button,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { navigation } from "./navigation";
 import {
   BrandDiscord,
@@ -29,6 +30,7 @@ import {
 import Link from "next/link";
 import { IconPlus } from "@tabler/icons-react";
 import LinksGroup from "./navbar-links-group";
+import ModalKey from "../ui/modal/modal";
 
 const useStyles = createStyles((theme) => ({
   navbar: {
@@ -71,6 +73,7 @@ const useStyles = createStyles((theme) => ({
 }));
 const Sidebar = ({ opened, setOpened, lang, ...rest }) => {
   const theme = useMantineTheme();
+  const [modal_opened, { open, close }] = useDisclosure(false);
 
   //   const { user } = useSelector((state) => state.auth);
 
@@ -139,10 +142,13 @@ const Sidebar = ({ opened, setOpened, lang, ...rest }) => {
         className={`${classes.footer} pt-3 flex flex-col items-center justify-center`}
       >
         <div className="w-full border-t border-neutral-800 pt-7 px-3 flex flex-col space-y-4 text-white">
-          <Link href="/" className="flex items-center space-x-2">
+          <div
+            onClick={open}
+            className="flex items-center space-x-2 cursor-pointer"
+          >
             <Settings size={24} />
             <span className="text-sm font-medium">Settings</span>
-          </Link>
+          </div>
           <Link href="/" className="flex items-center space-x-2">
             <Help size={24} />
             <span className="text-sm font-medium">Help</span>
@@ -156,6 +162,7 @@ const Sidebar = ({ opened, setOpened, lang, ...rest }) => {
             <span className="text-sm font-medium">Twitter</span>
           </Link>
         </div>
+        <ModalKey modal_opened={modal_opened} close={close} />
       </Navbar.Section>
     </Navbar>
   );
