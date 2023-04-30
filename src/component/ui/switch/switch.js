@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Switch, Group, useMantineTheme } from "@mantine/core";
 import { IconCheck, IconX } from "@tabler/icons-react";
+import { useViewportSize } from "@mantine/hooks";
 
 function SwitchA() {
   const theme = useMantineTheme();
   const [checked, setChecked] = useState(false);
+  const { width } = useViewportSize();
+
   return (
     <Group position="center">
       <Switch
@@ -12,8 +15,14 @@ function SwitchA() {
         onChange={(event) => setChecked(event.currentTarget.checked)}
         // color={checked ? theme.colors.violet[8] : theme.colors.red[5]}
         color="violet"
-        size="md"
+        size={width > 640 ? "md" : "sm"}
         label={checked ? "Enable" : "Disable"}
+        styles={{
+          label: {
+            fontSize: width > 640 ? "16px" : "14px",
+            color: checked ? theme.colors.violet[7] : theme.colors.gray[7],
+          },
+        }}
         className="w-32"
         thumbIcon={
           checked ? (

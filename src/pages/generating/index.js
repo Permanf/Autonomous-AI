@@ -19,12 +19,15 @@ const useStyles = createStyles((theme) => ({
 
 const Generating = () => {
   const { classes } = useStyles();
+
   return (
     <Layout>
-      <div className="bg-dark-2 w-full h-layout rounded-3xl px-6 py-4 text-white mt-2 flex flex-col justify-between bg-red-300">
+      <div className="bg-dark-2 w-full h-layout rounded-3xl px-3 sm:px-6 py-4 text-white mt-2 flex flex-col justify-between">
         <div className="flex justify-between items-start w-full h-header">
           <div>
-            <span className="text-sm text-neutral-600">Agent name</span>
+            <span className="text-xs sm:text-sm text-neutral-600">
+              Agent name
+            </span>
             <h1 className="font-medium text-white">Software Engineer</h1>
           </div>
           <div className="flex items-center space-x-6 mt-2">
@@ -37,20 +40,22 @@ const Generating = () => {
           </div>
         </div>
         <div
-          className={`${classes.thinking} w-full h-description rounded-3xl py-4 px-4 text-white border border-neutral-700 flex flex-col`}
+          className={`${classes.thinking} w-full h-description rounded-3xl py-4 px-4 text-white border border-neutral-700 flex flex-col my-5 md:my-0`}
         >
-          <p className="font-medium text-white">Chef - GPT</p>
-          <span className="text-sm text-neutral-600">
+          <p className="font-medium text-white text-sm sm:text-base">
+            Chef - GPT
+          </p>
+          <span className="text-xs sm:text-sm text-neutral-600">
             Chef GPT is AI designed to browse the web to discover the next
             upcoming evented invent a unique original recipie that would suite
             it
           </span>
         </div>
         <div
-          className={`${classes.thinking} w-full h-thinking rounded-3xl py-4 px-3 text-white border border-neutral-700 flex flex-col`}
+          className={`${classes.thinking} w-full h-thinking rounded-3xl py-4 px-3 text-white border border-neutral-700 flex flex-col `}
         >
           <ScrollArea
-            className="p-6 py-2"
+            className="p-3 sm:p-6 py-2"
             scrollbarSize={8}
             styles={(theme) => ({
               scrollbar: {

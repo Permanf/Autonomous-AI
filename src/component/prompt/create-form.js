@@ -1,13 +1,7 @@
-import {
-  Button,
-  Input,
-  ScrollArea,
-  TextInput,
-  createStyles,
-  useMantineTheme,
-} from "@mantine/core";
-import { IconCheck, IconFlare, IconPlus, IconTrash } from "@tabler/icons-react";
+import { Button, ScrollArea, TextInput, createStyles } from "@mantine/core";
+import { IconCheck, IconFlare, IconPlus } from "@tabler/icons-react";
 import GoalItem from "../goal/goal-item";
+
 const useStyles = createStyles((theme) => ({
   goal: {
     backgroundColor:
@@ -17,7 +11,6 @@ const useStyles = createStyles((theme) => ({
 
 const CreateForm = () => {
   const { classes } = useStyles();
-  // const theme = useMantineTheme();
 
   const goals = [
     {
@@ -40,8 +33,8 @@ const CreateForm = () => {
 
   return (
     <form className="h-create-form p-0 flex flex-col">
-      <div className="flex justify-between items-center h-inputs">
-        <div className="w-1/2 mr-7">
+      <div className="flex flex-col md:flex-row justify-between items-center h-inputs my-5 md:my-0">
+        <div className="w-full md:w-1/2 mr-0 md:mr-7 mb-5 md:mb-0">
           <TextInput
             color="indigo"
             placeholder="Chef-GPT"
@@ -50,7 +43,7 @@ const CreateForm = () => {
             radius="md"
           />
         </div>
-        <div className="w-1/2">
+        <div className="w-full md:w-1/2">
           <TextInput
             color="indigo"
             placeholder="An AI designed to autonomously develop and run businesses with the sole goal of
@@ -62,13 +55,13 @@ const CreateForm = () => {
         </div>
       </div>
       <div
-        className={`${classes.goal} w-full h-goal rounded-3xl py-4 text-white border border-neutral-700 flex flex-col`}
+        className={`${classes.goal} w-full h-goal rounded-3xl py-4 text-white border border-neutral-700 flex flex-col my-5 md:my-0`}
       >
-        <p className="font-medium text-xl px-6">
+        <p className="font-medium text-base sm:text-xl px-3 sm:px-6">
           Enter up to 5 goals for your AI
         </p>
         <ScrollArea
-          className="p-6 py-2"
+          className="p-3 sm:p-6 py-2"
           scrollbarSize={8}
           styles={(theme) => ({
             scrollbar: {
@@ -83,7 +76,7 @@ const CreateForm = () => {
           })}
         </ScrollArea>
 
-        <div className="p-6 py-0 flex flex-col">
+        <div className="px-3 sm:px-6 flex flex-col">
           <div className="flex items-center space-x-3">
             <div className="w-7 h-7 bg-neutral-800 flex justify-center items-center rounded-md text-xs">
               4
@@ -104,7 +97,7 @@ const CreateForm = () => {
               <IconTrash size={19} />
             </div> */}
           </div>
-          <Button color="gray" className="w-full  mt-4 bg-neutral-800">
+          <Button size="xs" color="gray" className="w-full mt-4 bg-neutral-800">
             <IconPlus size={22} className="mr-2" />
             Add new goal
           </Button>

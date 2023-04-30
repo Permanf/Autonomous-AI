@@ -3,12 +3,9 @@ import { memo } from "react";
 import {
   Navbar,
   Group,
-  Code,
   Burger,
   ScrollArea,
   createStyles,
-  rem,
-  Avatar,
   ThemeIcon,
   MediaQuery,
   useMantineTheme,
@@ -16,21 +13,12 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { navigation } from "./navigation";
-import {
-  BrandDiscord,
-  BrandTwitter,
-  Help,
-  Settings,
-  //   Logout,
-  //   ChevronDown,
-  //   Search,
-  //   Building,
-  //   Users,
-} from "tabler-icons-react";
+import { BrandDiscord, BrandTwitter, Help, Settings } from "tabler-icons-react";
 import Link from "next/link";
 import { IconPlus } from "@tabler/icons-react";
 import LinksGroup from "./navbar-links-group";
 import ModalKey from "../ui/modal/modal";
+import { useViewportSize } from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
   navbar: {
@@ -46,15 +34,11 @@ const useStyles = createStyles((theme) => ({
     marginLeft: `calc(${theme.spacing.md} * -1)`,
     marginRight: `calc(${theme.spacing.md} * -1)`,
     color: theme.colorScheme === "dark" ? theme.white : theme.black,
-    // borderBottom: `${rem(1)} solid ${
-    //   theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
-    // }`,
   },
 
   links: {
     marginLeft: `calc(${theme.spacing.md} * -1)`,
     marginRight: `calc(${theme.spacing.md} * -1)`,
-    // backgroundColor: "red",
   },
 
   linksInner: {
@@ -66,27 +50,32 @@ const useStyles = createStyles((theme) => ({
     padding: theme.spacing.md,
     marginLeft: `calc(${theme.spacing.md} * -1)`,
     marginRight: `calc(${theme.spacing.md} * -1)`,
-    // borderTop: `${rem(1)} solid ${
-    //   theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
-    // }`,
   },
 }));
 const Sidebar = ({ opened, setOpened, lang, ...rest }) => {
   const theme = useMantineTheme();
   const [modal_opened, { open, close }] = useDisclosure(false);
-
-  //   const { user } = useSelector((state) => state.auth);
-
-  // console.log(navigation({lang}));
-  // console.log(lang)
+  const { width } = useViewportSize();
   const { classes } = useStyles();
+
   const links = navigation({ lang })?.map((item) => (
     <LinksGroup {...item} key={item?.label} />
   ));
 
   return (
-    <Navbar {...rest} width={{ sm: 270 }} p="md" className={classes.navbar}>
-      <Navbar.Section className={classes.header}>
+    <Navbar
+      {...rest}
+      width={{ sm: 270 }}
+      p="md"
+      className={`${classes.navbar} ${
+        opened ? "block transition-all" : "hidden transition-all"
+      } md:block `}
+    >
+      <Navbar.Section
+        className={`${classes.header} 
+        hidden md:block
+        `}
+      >
         <Group mt={2}>
           <ThemeIcon
             // size={30}
@@ -104,17 +93,6 @@ const Sidebar = ({ opened, setOpened, lang, ...rest }) => {
             Autonomous AI
           </Link>
           {/* <Code sx={{ fontWeight: 700 }}>v1.0.0</Code> */}
-          <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-            <Burger
-              opened={opened}
-              onClick={() => {
-                setOpened((o) => !o);
-              }}
-              size="sm"
-              color={theme.colors.gray[1]}
-              mr="xl"
-            />
-          </MediaQuery>
         </Group>
         <Button
           leftIcon={<IconPlus size="1rem" />}
@@ -124,8 +102,21 @@ const Sidebar = ({ opened, setOpened, lang, ...rest }) => {
           Create new agent
         </Button>
       </Navbar.Section>
-
-      <p className="font-medium text-neutral-600 my-3">Recent projects</p>
+      <Group position="right">
+        <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+          <Burger
+            opened={opened}
+            onClick={() => {
+              setOpened((o) => !o);
+            }}
+            size="sm"
+            color={theme.colors.gray[1]}
+          />
+        </MediaQuery>
+      </Group>
+      <p className={`font-medium text-neutral-600 my-3 pt-4 md:pt-0`}>
+        Recent projects
+      </p>
       <Navbar.Section
         grow
         className={classes.links}
