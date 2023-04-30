@@ -2,8 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Inter";
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #7a73f3;
+  border-radius: 5px;
+}
+
 .bg-dark-2 {
   background-color: #1f2123;
+  /* background-color: red; */
 }
 
 .h-layout {
@@ -33,6 +46,12 @@
 
 .h-thinking {
   height: 70%;
+}
+@media (max-width: 768px) {
+  .h-layout {
+    /* height: 577px; */
+    height: 100%;
+  }
 }
 
 /* .mantine-Switch-label {

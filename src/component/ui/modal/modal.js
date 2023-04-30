@@ -1,8 +1,10 @@
 import { Modal, useMantineTheme, TextInput } from "@mantine/core";
 import { Key } from "tabler-icons-react";
+import { useViewportSize } from "@mantine/hooks";
 
 function ModalKey({ modal_opened, close }) {
   const theme = useMantineTheme();
+  const { width } = useViewportSize();
 
   return (
     <>
@@ -10,7 +12,7 @@ function ModalKey({ modal_opened, close }) {
         size="lg"
         // className="bg-red-300"
         radius="lg"
-        padding={25}
+        padding={width > 768 ? 25 : 20}
         centered
         opened={modal_opened}
         onClose={close}
@@ -25,15 +27,18 @@ function ModalKey({ modal_opened, close }) {
           //   blur: 3,
         }}
         styles={{
-          title: { fontSize: "25px" },
-          header: { paddingTop: "1.5rem", paddingBottom: "1.5rem" },
+          title: { fontSize: width > 768 ? "25px" : "18px" },
+          header: {
+            paddingTop: width > 768 ? "1.5rem" : "1rem",
+            paddingBottom: width > 768 ? "1.5rem" : "1rem",
+          },
         }}
       >
-        <p className="border-t border-neutral-700 py-4">
+        <p className="border-t border-neutral-700 py-4 text-sm sm:text-base">
           Welcome to AgentGPT! We're receiving traffic far higher than our small
           team is able to provide for at the moment.
         </p>
-        <p>
+        <p className="text-sm sm:text-base">
           Because of this, we momentarily ask that users utilize their own
           OpenAI API key for AgentGPT. This will only be used in the current
           browser session and not stored anywhere. If you elect not to, your
@@ -59,7 +64,7 @@ function ModalKey({ modal_opened, close }) {
             <Key size={18} /> <span>Key:</span>
           </div>
         </div>
-        <p>
+        <p className="text-sm sm:text-base">
           NOTE: This must be a PAID OpenAI API account, not the free tier. This
           is different from a ChatGPT Plus subscription.
         </p>

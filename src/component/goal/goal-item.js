@@ -1,10 +1,3 @@
-// import {
-//     Button,
-//     Input,
-//     ScrollArea,
-//     TextInput,
-//     createStyles,
-//   } from "@mantine/core";
 import { IconCheck, IconTrash } from "@tabler/icons-react";
 
 const GoalItem = ({ goal }) => {
@@ -18,7 +11,9 @@ const GoalItem = ({ goal }) => {
         <IconCheck size={20} className="text-neutral-400" />
       </div>
       <div className="flex justify-between items-center">
-        <span className="text-sm">{goal.description}</span>
+        <span className="text-xs sm:text-sm py-2 sm:py-0 w-10/12">
+          {goal.description}
+        </span>
         <div className="w-8 h-8 bg-neutral-800 text-neutral-400 flex justify-center items-center rounded-md cursor-pointer hover:text-red-600">
           <IconTrash size={19} />
         </div>

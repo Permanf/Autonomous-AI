@@ -1,35 +1,12 @@
-import {
-  AppShell,
-  Header,
-  Group,
-  MediaQuery,
-  Burger,
-  useMantineTheme,
-  Avatar,
-  Menu,
-  Badge,
-  Button,
-} from "@mantine/core";
-// import {
-//   Settings,
-//   Logout,
-//   ChevronDown,
-//   Search,
-//   Building,
-//   Users,
-// } from "tabler-icons-react";
+import { AppShell, Burger, ThemeIcon, useMantineTheme } from "@mantine/core";
 import Sidebar from "../sidebar/sidebar";
 import { useState } from "react";
+import Link from "next/link";
+import { Plus } from "tabler-icons-react";
 
 export default function Layout({ children }) {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
-  // const [extended, setExtended] = useLocalStorage({
-  //   key: "sidebar-size",
-  //   defaultValue: "true",
-  // });
-  // const dispatch = useDispatch();
-  // const { lang, token } = useSelector((state) => state.auth);
   const lang = "ru";
   return (
     <AppShell
@@ -54,6 +31,33 @@ export default function Layout({ children }) {
         />
       }
     >
+      <div className="md:hidden flex justify-between items-center py-2 pb-4">
+        <div className="bg-neutral-800 rounded-lg px-2 py-1">
+          <Burger
+            opened={opened}
+            onClick={() => {
+              setOpened((o) => !o);
+            }}
+            size="sm"
+            color={theme.colors.gray[1]}
+          />
+        </div>
+        <Link
+          href="/"
+          className="font-extrabold text-transparent text-lg sm:text-xl bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-600 first-letter:uppercase"
+        >
+          Autonomous AI
+        </Link>
+        <ThemeIcon
+          // size={30}
+          size="xl"
+          variant="gradient"
+          gradient={{ from: "indigo.2", to: "indigo.5", deg: 100 }}
+          className="text-white font-bold text-2xl rounded-lg"
+        >
+          <Plus />
+        </ThemeIcon>
+      </div>
       <main>{children}</main>
     </AppShell>
   );
