@@ -52,7 +52,7 @@ const useStyles = createStyles((theme) => ({
     marginRight: `calc(${theme.spacing.md} * -1)`,
   },
 }));
-const Sidebar = ({ opened, setOpened, lang, ...rest }) => {
+const Sidebar = ({ opened, setOpenAIKey, openAIKey, setOpened, lang, ...rest }) => {
   const theme = useMantineTheme();
   const [modal_opened, { open, close }] = useDisclosure(false);
   const { width } = useViewportSize();
@@ -156,7 +156,7 @@ const Sidebar = ({ opened, setOpened, lang, ...rest }) => {
             <span className="text-sm font-medium">Twitter</span>
           </Link>
         </div>
-        <ModalKey modal_opened={modal_opened} close={close} />
+        <ModalKey openAIKey={openAIKey} setOpenAIKey={(val)=>setOpenAIKey(val)} modal_opened={modal_opened} close={close} />
       </Navbar.Section>
     </Navbar>
   );

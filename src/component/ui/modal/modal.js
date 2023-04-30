@@ -2,10 +2,10 @@ import { Modal, useMantineTheme, TextInput } from "@mantine/core";
 import { Key } from "tabler-icons-react";
 import { useViewportSize } from "@mantine/hooks";
 
-function ModalKey({ modal_opened, close }) {
+function ModalKey({ modal_opened, close, setOpenAIKey, openAIKey }) {
   const theme = useMantineTheme();
   const { width } = useViewportSize();
-
+  console.log(openAIKey)
   return (
     <>
       <Modal
@@ -51,6 +51,8 @@ function ModalKey({ modal_opened, close }) {
             placeholder="SK ..."
             withAsterisk
             radius="md"
+            onChange={(e) =>setOpenAIKey(e.target.value)}
+            value={openAIKey}
             styles={{
               input: {
                 paddingLeft: "80px",

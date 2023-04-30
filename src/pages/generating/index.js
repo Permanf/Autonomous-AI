@@ -21,7 +21,7 @@ const Generating = () => {
   const { classes } = useStyles();
 
   return (
-    <Layout>
+    // <Layout>
       <div className="bg-dark-2 w-full h-layout rounded-3xl px-3 sm:px-6 py-4 text-white mt-2 flex flex-col justify-between">
         <div className="flex justify-between items-start w-full h-header">
           <div>
@@ -69,7 +69,7 @@ const Generating = () => {
           </ScrollArea>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 };
 export default Generating;
