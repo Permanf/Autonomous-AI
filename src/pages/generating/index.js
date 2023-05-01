@@ -17,7 +17,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const Generating = () => {
+const Generating = ({messages}) => {
   const { classes } = useStyles();
 
   return (
@@ -65,7 +65,7 @@ const Generating = () => {
               },
             })}
           >
-            <Thinking />
+            <Thinking messages={messages}/>
           </ScrollArea>
         </div>
       </div>

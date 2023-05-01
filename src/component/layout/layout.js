@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Plus } from "tabler-icons-react";
 
-export default function Layout({ children, openAIKey, setOpenAIKey }) {
+export default function Layout({ children, openAIKey, setOpenAIKey, setGenerating }) {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
   const lang = "ru";
@@ -27,6 +27,7 @@ export default function Layout({ children, openAIKey, setOpenAIKey }) {
           hiddenBreakpoint="sm"
           lang={lang}
           openAIKey={openAIKey}
+          setGenerating={setGenerating}
           setOpenAIKey={(value)=>setOpenAIKey(value)}
           opened={opened}
           setOpened={setOpened}

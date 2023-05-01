@@ -16,9 +16,9 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const CreateForm = ({setGenerating, openAIKey, setMessages}) => {
+const CreateForm = ({setGenerating, openAIKey, setMessages,  cancel, setCancel, continousMode}) => {
   const { classes } = useStyles();
-  console.log(openAIKey)
+  // console.log(openAIKey)
   // const theme = useMantineTheme();
   const schema = Yup.object({
     agent:Yup.string("String required").min(3).required(),
@@ -51,17 +51,22 @@ const CreateForm = ({setGenerating, openAIKey, setMessages}) => {
     4:"Fourth Goal",
     5:"Fifth Goal"
   }
-  console.log(errors)
+  // console.log(errors)
   // const [generating, setGenerating] = useState(true)
   const onSubmit = (data) =>{
-    console.log(data)
+    // console.log(data)
+    setGenerating(true)
+    setMessages([])
     const agent = new AutonomousAgent (
       data.goals?.map(item => item.goal?.trim()).join("\n"), 
       data.agent.trim(), 
       data.role.trim(),
       (value) => setMessages(prev => [...prev, value]),
       ()=>console.log("hell oworld"),
-      openAIKey
+      openAIKey,
+      cancel,
+      setCancel,
+      continousMode
       )
     agent.run().then(console.log).catch(console.error)
   }

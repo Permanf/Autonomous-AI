@@ -3,9 +3,11 @@ import {
   startGoalPrompt,
   executeTaskPrompt,
   createTasksPrompt,
+  createCritisimPrompt,
 } from "../utils/prompts";
 // import type { ModelSettings } from "../utils/types";
 import { LLMChain } from "langchain/chains";
+import { extractTasks } from "../utils/utils";
 
 async function startGoalAgent(modelSettings, goal, agent) {
   const completion = await new LLMChain({
@@ -15,8 +17,13 @@ async function startGoalAgent(modelSettings, goal, agent) {
     goal,
     agent
   });
-  console.log("Completion:" + (completion.text));
-  return completion.text ;
+  // console.log("Completion:" + (completion.text));
+  try {
+    console.log(JSON.parse(completion.text))
+  } catch (e) {
+    console.log(e)
+  }
+  return extractTasks(completion.text) ;
 }
 
 async function executeTaskAgent(
@@ -53,7 +60,18 @@ async function createTasksAgent(
     result,
   });
 
-  return completion.text;
+  return extractTasks(completion.text, completedTasks);
+}
+
+async function createCritisizm (modelSettings, goal, role){
+  const completion = await new LLMChain({
+    llm:createModel(modelSettings),
+    prompt:createCritisimPrompt
+  }).call({
+    goal,
+    role
+  })
+  return completion.text
 }
 
 
@@ -62,6 +80,7 @@ const OpenAIAgentService = {
   startGoalAgent: startGoalAgent,
   executeTaskAgent: executeTaskAgent,
   createTasksAgent: createTasksAgent,
+  createCritisizm: createCritisizm
 };
 
 // const MockAgentService: AgentService = {

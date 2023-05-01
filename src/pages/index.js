@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../component/layout/layout";
 import CreateForm from "../component/prompt/create-form";
 import SwitchA from "../component/ui/switch/switch";
@@ -9,9 +9,21 @@ export default function Home() {
   const [messages, setMessages] = useState([])
   const [continousMode, setContinousMode] = useState(false)
   const [cansel, setCancel] = useState(false)
-  const [openAIKey, setOpenAIKey] = useState("")
+  const [openAIKey, setOpenAIKey] = useState("");
+  useEffect(()=>{
+    console.log("useEffect in save");
+    if(openAIKey){
+      localStorage.setItem("openAIKey", openAIKey)
+    }
+  }, [openAIKey])
+  useEffect(()=>{
+    const key = localStorage.getItem("openAIKey");
+    if(key){
+      setOpenAIKey(key)
+    }
+  }, [])
   return (
-    <Layout openAIKey ={openAIKey} setOpenAIKey = {(value) => setOpenAIKey(value)}>
+    <Layout setGenerating = {setGenerating} openAIKey ={openAIKey} setOpenAIKey = {(value) => setOpenAIKey(value)}>
       {generating ? 
           <Generating setCancel = {setCancel} messages={messages} />
         :

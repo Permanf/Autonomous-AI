@@ -52,7 +52,7 @@ const useStyles = createStyles((theme) => ({
     marginRight: `calc(${theme.spacing.md} * -1)`,
   },
 }));
-const Sidebar = ({ opened, setOpenAIKey, openAIKey, setOpened, lang, ...rest }) => {
+const Sidebar = ({ opened, setOpenAIKey, openAIKey, setOpened, setGenerating, lang, ...rest }) => {
   const theme = useMantineTheme();
   const [modal_opened, { open, close }] = useDisclosure(false);
   const { width } = useViewportSize();
@@ -97,6 +97,7 @@ const Sidebar = ({ opened, setOpenAIKey, openAIKey, setOpened, lang, ...rest }) 
         <Button
           leftIcon={<IconPlus size="1rem" />}
           color="indigo"
+          onClick={()=>setGenerating(false)}
           className="w-full mt-6 bg-gradient-to-r from-violet-400 to-violet-500"
         >
           Create new agent

@@ -5,7 +5,7 @@ import { useViewportSize } from "@mantine/hooks";
 function ModalKey({ modal_opened, close, setOpenAIKey, openAIKey }) {
   const theme = useMantineTheme();
   const { width } = useViewportSize();
-  console.log(openAIKey)
+  // console.log(openAIKey)
   return (
     <>
       <Modal
