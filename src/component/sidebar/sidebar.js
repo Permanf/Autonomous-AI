@@ -11,14 +11,17 @@ import {
   useMantineTheme,
   Button,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import {
+  useDisclosure,
+  useViewportSize,
+  useLocalStorage,
+} from "@mantine/hooks";
 import { navigation } from "./navigation";
 import { BrandDiscord, BrandTwitter, Help, Settings } from "tabler-icons-react";
 import Link from "next/link";
 import { IconPlus } from "@tabler/icons-react";
 import LinksGroup from "./navbar-links-group";
 import ModalKey from "../ui/modal/modal";
-import { useViewportSize } from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
   navbar: {
@@ -52,12 +55,23 @@ const useStyles = createStyles((theme) => ({
     marginRight: `calc(${theme.spacing.md} * -1)`,
   },
 }));
-const Sidebar = ({ opened, setOpenAIKey, openAIKey, setOpened, setGenerating, lang, ...rest }) => {
+const Sidebar = ({
+  opened,
+  setOpenAIKey,
+  openAIKey,
+  setOpened,
+  setGenerating,
+  lang,
+  ...rest
+}) => {
   const theme = useMantineTheme();
   const [modal_opened, { open, close }] = useDisclosure(false);
   const { width } = useViewportSize();
   const { classes } = useStyles();
-
+  const [value, setValue] = useLocalStorage({
+    key: "sidebar",
+  });
+  console.log(value, "--s");
   const links = navigation({ lang })?.map((item) => (
     <LinksGroup {...item} key={item?.label} />
   ));
@@ -97,7 +111,7 @@ const Sidebar = ({ opened, setOpenAIKey, openAIKey, setOpened, setGenerating, la
         <Button
           leftIcon={<IconPlus size="1rem" />}
           color="indigo"
-          onClick={()=>setGenerating(false)}
+          onClick={() => setGenerating(false)}
           className="w-full mt-6 bg-gradient-to-r from-violet-400 to-violet-500"
         >
           Create new agent
@@ -157,7 +171,12 @@ const Sidebar = ({ opened, setOpenAIKey, openAIKey, setOpened, setGenerating, la
             <span className="text-sm font-medium">Twitter</span>
           </Link>
         </div>
-        <ModalKey openAIKey={openAIKey} setOpenAIKey={(val)=>setOpenAIKey(val)} modal_opened={modal_opened} close={close} />
+        <ModalKey
+          openAIKey={openAIKey}
+          setOpenAIKey={(val) => setOpenAIKey(val)}
+          modal_opened={modal_opened}
+          close={close}
+        />
       </Navbar.Section>
     </Navbar>
   );

@@ -3,7 +3,7 @@ import { Switch, Group, useMantineTheme } from "@mantine/core";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import { useViewportSize } from "@mantine/hooks";
 
-function SwitchA({setContinousMode, continousMode}) {
+function SwitchA({ setContinousMode, continousMode }) {
   const theme = useMantineTheme();
   const [checked, setChecked] = useState(false);
   const { width } = useViewportSize();
@@ -16,11 +16,13 @@ function SwitchA({setContinousMode, continousMode}) {
         // color={checked ? theme.colors.violet[8] : theme.colors.red[5]}
         color="violet"
         size={width > 640 ? "md" : "sm"}
-        label={continousMode ? "Enable" : "Disable"}
+        label={continousMode ? "Enabled" : "Disabled"}
         styles={{
           label: {
             fontSize: width > 640 ? "16px" : "14px",
-            color: continousMode ? theme.colors.violet[7] : theme.colors.gray[7],
+            color: continousMode
+              ? theme.colors.violet[7]
+              : theme.colors.gray[7],
           },
         }}
         className="w-32 "

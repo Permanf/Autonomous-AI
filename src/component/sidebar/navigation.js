@@ -5,7 +5,7 @@ export const navigation = ({ lang }) => {
   const links_1 = [
     {
       label: "Software engineer",
-      link: "/generating",
+      link: "/",
       icon: <FileText />,
     },
     {
