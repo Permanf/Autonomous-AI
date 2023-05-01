@@ -1,4 +1,3 @@
-import translations from "./translations";
 import { FileText } from "tabler-icons-react";
 
 export const navigation = ({ lang }) => {

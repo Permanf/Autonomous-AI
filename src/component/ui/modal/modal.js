@@ -35,7 +35,7 @@ function ModalKey({ modal_opened, close, setOpenAIKey, openAIKey }) {
         }}
       >
         <p className="border-t border-neutral-700 py-4 text-sm sm:text-base">
-          Welcome to AgentGPT! We're receiving traffic far higher than our small
+          Welcome to AgentGPT! We`&apos;`re receiving traffic far higher than our small
           team is able to provide for at the moment.
         </p>
         <p className="text-sm sm:text-base">

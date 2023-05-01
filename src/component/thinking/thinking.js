@@ -5,7 +5,7 @@ const Thinking = ({messages}) => {
       {messages?.map((item, index) =>{
         if(item.type === "action" ){
           return (
-            <div className="flex flex-col border-b border-neutral-700 py-4 pt-0">
+            <div key={index} className="flex flex-col border-b border-neutral-700 py-4 pt-0">
               <span className="text-violet-700 text-xs sm:text-sm">
                 {item.type === "action" ? item.task : "Other"} 
               </span>
@@ -17,7 +17,7 @@ const Thinking = ({messages}) => {
         }
         if(item.type === "think"){
          return (
-            <div className="flex flex-col border-b border-neutral-700 py-4 pt-0">
+            <div key={index} className="flex flex-col border-b border-neutral-700 py-4 pt-0">
               <span className="text-violet-700 text-xs sm:text-sm">
                 thinking
               </span>
@@ -29,7 +29,7 @@ const Thinking = ({messages}) => {
         }
         if(item.type === "criticism"){
           return(
-            <div className="flex flex-col border-b border-neutral-700 py-4 pt-0">
+            <div key={index} className="flex flex-col border-b border-neutral-700 py-4 pt-0">
               <span className="text-violet-700 text-xs sm:text-sm">
               🖍️ Crticisim:
               </span>
@@ -41,7 +41,7 @@ const Thinking = ({messages}) => {
         }
         if(item.type === "task"){
           return(
-            <div className="flex flex-col border-b border-neutral-700 py-4 pt-0">
+            <div key = {index} className="flex flex-col border-b border-neutral-700 py-4 pt-0">
               <span className="text-violet-700 text-xs sm:text-sm">
               🖍️ Task:
               </span>
