@@ -1,12 +1,10 @@
 import { Button, ScrollArea, TextInput, createStyles } from "@mantine/core";
 import { IconCheck, IconFlare, IconPlus } from "@tabler/icons-react";
-// import GoalItem from "../goal/goal-item";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
-// import Generating from "../../pages/generating";
 import AutonomousAgent from "../../utils/AutonomousAgent";
 import { useLocalStorage } from "@mantine/hooks";
 import { notifications } from '@mantine/notifications';

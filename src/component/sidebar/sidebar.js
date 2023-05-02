@@ -16,11 +16,10 @@ import {
   useViewportSize,
   useLocalStorage,
 } from "@mantine/hooks";
-import { navigation } from "./navigation";
 import { BrandDiscord, BrandTwitter, Help, Settings } from "tabler-icons-react";
 import Link from "next/link";
 import { IconPlus } from "@tabler/icons-react";
-import LinksGroup from "./navbar-links-group";
+// import LinksGroup from "./navbar-links-group";
 import ModalKey from "../ui/modal/modal";
 
 const useStyles = createStyles((theme) => ({
