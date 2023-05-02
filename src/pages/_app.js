@@ -2,7 +2,7 @@ import Head from "next/head";
 import "../styles/globals.css";
 import { MantineProvider } from "@mantine/core";
 import "@fontsource/inter";
-
+import { Notifications } from '@mantine/notifications';
 export default function App(props) {
   const { Component, pageProps } = props;
 
@@ -51,6 +51,7 @@ export default function App(props) {
         //   },
         // }}
       >
+        <Notifications />
         <Component {...pageProps} />
       </MantineProvider>
     </>

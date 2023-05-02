@@ -61,6 +61,7 @@ const Sidebar = ({
   openAIKey,
   setOpened,
   setGenerating,
+  agents,
   lang,
   ...rest
 }) => {
@@ -72,9 +73,12 @@ const Sidebar = ({
     key: "sidebar",
   });
   console.log(value, "--s");
-  const links = navigation({ lang })?.map((item) => (
-    <LinksGroup {...item} key={item?.label} />
-  ));
+  // const links = agents?.map((item) => (
+  //   // <LinksGroup {...item} key={item?.agent} />
+  //   // <div></div>
+  //   <></>
+  // ));
+  const links = <></>
 
   return (
     <Navbar

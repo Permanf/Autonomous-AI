@@ -2,13 +2,14 @@ import { Button, ScrollArea, TextInput, createStyles } from "@mantine/core";
 import { IconCheck, IconFlare, IconPlus } from "@tabler/icons-react";
 // import GoalItem from "../goal/goal-item";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import { yupResolver } from "@mantine/form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
-import Generating from "../../pages/generating";
+// import Generating from "../../pages/generating";
 import AutonomousAgent from "../../utils/AutonomousAgent";
 import { useLocalStorage } from "@mantine/hooks";
+import { notifications } from '@mantine/notifications';
 
 const useStyles = createStyles((theme) => ({
   goal: {
@@ -24,6 +25,7 @@ const CreateForm = ({
   cancel,
   setCancel,
   continousMode,
+  setAgents
 }) => {
   const { classes } = useStyles();
   // console.log(openAIKey)
@@ -32,21 +34,19 @@ const CreateForm = ({
     key: "sidebar",
     defaultValue: "",
   });
-  const schema = Yup.object({
+  const schema = Yup.object().shape({
     agent: Yup.string("String required").min(3).required(),
     role: Yup.string("String required").min(3).required(),
     goals: Yup.array()
       .of(
         Yup.object({
-          goal: Yup.string("String required").min(3).required(),
+          goal: Yup.string("String required").min(3, "Minimum 3 letter").required(),
         })
       )
       .min(1),
   });
   const {
     control,
-    setValues,
-    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -55,7 +55,7 @@ const CreateForm = ({
       agent: "",
       goals: [{ goal: "" }],
     },
-    // resolver: yupResolver(schema)
+    resolver: yupResolver(schema)
   });
 
   const { fields, append, remove, update } = useFieldArray({
@@ -75,22 +75,32 @@ const CreateForm = ({
   // const [generating, setGenerating] = useState(true)
   const onSubmit = (data) => {
     console.log(data);
-    setValue(data);
-    setGenerating(true);
-    setMessages([]);
-    const agent = new AutonomousAgent(
-      data.goals?.map((item) => item.goal?.trim()).join("\n"),
-      data.agent.trim(),
-      data.role.trim(),
-      (value) => setMessages((prev) => [...prev, value]),
-      () => console.log("hell oworld"),
-      openAIKey,
-      cancel,
-      setCancel,
-      continousMode
-    );
-    agent.run().then(console.log).catch(console.error);
+    setAgents(prev => [...prev, data])
+    if(openAIKey){
+      setValue(data);
+      setGenerating(true);
+      setMessages([]);
+      const agent = new AutonomousAgent(
+        data.goals?.map((item) => item.goal?.trim()).join("\n"),
+        data.agent.trim(),
+        data.role.trim(),
+        (value) => setMessages((prev) => [...prev, value]),
+        () => console.log("hell oworld"),
+        openAIKey,
+        cancel,
+        setCancel,
+        continousMode
+      );
+      agent.run().then(console.log).catch(console.error);
+    }else{
+      notifications.show({
+        title: 'OpenAI secret key',
+        message: 'You have to add your OpenAI secret key in settings',
+      }) 
+    }
+    
   };
+  console.log(errors)
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -108,6 +118,7 @@ const CreateForm = ({
                 value={value}
                 placeholder="Chef-GPT"
                 label="Name your AI"
+                error={errors?.agent?.message}
                 withAsterisk
                 radius="md"
               />
@@ -125,6 +136,7 @@ const CreateForm = ({
                 increasing your net worth."
                 label="Describe your AI’s role"
                 withAsterisk
+                error={errors?.role?.message}
                 onChange={onChange}
                 value={value}
                 radius="md"
@@ -169,6 +181,7 @@ const CreateForm = ({
                         color="indigo"
                         placeholder="Type here ..."
                         radius="md"
+                        error={errors?.goals?.length ? errors?.goals[index]?.goal?.message : ''}
                         variant="unstyled"
                         onChange={onChange}
                         value={value}

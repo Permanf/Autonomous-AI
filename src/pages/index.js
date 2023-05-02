@@ -10,6 +10,12 @@ export default function Home() {
   const [continousMode, setContinousMode] = useState(false)
   const [cansel, setCancel] = useState(false)
   const [openAIKey, setOpenAIKey] = useState("");
+  const [agents, setAgents] = useState([])
+  useEffect(()=>{
+    if(agents?.length){
+      localStorage.setItem("agents", agents)
+    }
+  }, [agents])
   useEffect(()=>{
     console.log("useEffect in save");
     if(openAIKey){
@@ -21,9 +27,11 @@ export default function Home() {
     if(key){
       setOpenAIKey(key)
     }
+    const agents = localStorage.getItem("agents");
+    setAgents(agents)
   }, [])
   return (
-    <Layout setGenerating = {setGenerating} openAIKey ={openAIKey} setOpenAIKey = {(value) => setOpenAIKey(value)}>
+    <Layout agents={agents} setGenerating = {setGenerating} openAIKey ={openAIKey} setOpenAIKey = {(value) => setOpenAIKey(value)}>
       {generating ? 
           <Generating setCancel = {setCancel} messages={messages} />
         :
@@ -37,7 +45,7 @@ export default function Home() {
               <SwitchA continousMode={continousMode} setContinousMode={setContinousMode} />
             </div>
           </div>
-          <CreateForm openAIKey={openAIKey} cansel={cansel} continousMode={continousMode} setMessages={setMessages} setGenerating = {setGenerating}/>
+          <CreateForm setAgents = {setAgents} openAIKey={openAIKey} cansel={cansel} continousMode={continousMode} setMessages={setMessages} setGenerating = {setGenerating}/>
         </div>
       }
       
