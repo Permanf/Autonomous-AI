@@ -23,7 +23,7 @@ const CreateForm = ({
   cancel,
   setCancel,
   continousMode,
-  setAgents
+  
 }) => {
   const { classes } = useStyles();
   // console.log(openAIKey)
@@ -73,16 +73,15 @@ const CreateForm = ({
   // const [generating, setGenerating] = useState(true)
   const onSubmit = (data) => {
     console.log(data);
-    setAgents(prev => [...prev, data])
     if(openAIKey){
       setValue(data);
       setGenerating(true);
       setMessages([]);
       const agent = new AutonomousAgent(
-        data.goals?.map((item) => item.goal?.trim()).join("\n"),
+        data.goals?.map((item) => item?.goal).join("\n"),
         data.agent.trim(),
         data.role.trim(),
-        (value) => setMessages((prev) => [...prev, value]),
+        (value) => setMessages((prev) => prev?.length ? [...prev, value] : [value]),
         () => console.log("hell oworld"),
         openAIKey,
         cancel,
