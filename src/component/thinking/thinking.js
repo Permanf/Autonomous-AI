@@ -1,58 +1,62 @@
-const Thinking = ({messages}) => {
-  console.log(messages)
+const Thinking = ({ messages }) => {
+  console.log(messages);
   return (
     <>
-      {messages?.map((item, index) =>{
-        if(item.type === "action" ){
+      {messages?.map((item, index) => {
+        if (item.type === "action") {
           return (
-            <div key={index} className="flex flex-col border-b border-neutral-700 py-4 pt-0">
+            <div
+              key={index}
+              className="flex flex-col border-b border-neutral-700 py-4 pt-0"
+            >
               <span className="text-violet-700 text-xs sm:text-sm">
-                {item.type === "action" ? item.task : "Other"} 
+                {item.type === "action" ? item.task : "Other"}
               </span>
-              <p className="text-sm sm:text-base">
-                {item.value}
-              </p>
+              <p className="text-sm sm:text-base">{item.value}</p>
             </div>
-          )
+          );
         }
-        if(item.type === "think"){
-         return (
-            <div key={index} className="flex flex-col border-b border-neutral-700 py-4 pt-0">
+        if (item.type === "think") {
+          return (
+            <div
+              key={index}
+              className="flex flex-col border-b border-neutral-700 py-4 pt-0"
+            >
               <span className="text-violet-700 text-xs sm:text-sm">
                 thinking
               </span>
-              <p className="text-sm sm:text-base">
-               Thinking about tasks
-              </p>
+              <p className="text-sm sm:text-base">Thinking about tasks</p>
             </div>
-          )
+          );
         }
-        if(item.type === "criticism"){
-          return(
-            <div key={index} className="flex flex-col border-b border-neutral-700 py-4 pt-0">
+        if (item.type === "criticism") {
+          return (
+            <div
+              key={index}
+              className="flex flex-col border-b border-neutral-700 py-4 pt-0"
+            >
               <span className="text-violet-700 text-xs sm:text-sm">
-              🖍️ Crticisim:
+                🖍️ Crticisim:
               </span>
-              <p className="text-sm sm:text-base">
-                {item.value}
-              </p>
+              <p className="text-sm sm:text-base">{item.value}</p>
             </div>
-          )
+          );
         }
-        if(item.type === "task"){
-          return(
-            <div key = {index} className="flex flex-col border-b border-neutral-700 py-4 pt-0">
+        if (item.type === "task") {
+          return (
+            <div
+              key={index}
+              className="flex flex-col border-b border-neutral-700 py-4 pt-0"
+            >
               <span className="text-violet-700 text-xs sm:text-sm">
-              🖍️ Task:
+                🖍️ Task:
               </span>
-              <p className="text-sm sm:text-base">
-                {item.value}
-              </p>
+              <p className="text-sm sm:text-base">{item.value}</p>
             </div>
-          )
+          );
         }
       })}
-      
+
       {/* <div className="flex flex-col border-b border-neutral-700 py-4">
         <span className="text-violet-700 text-xs sm:text-sm">
           ⭐️ Reasoning:

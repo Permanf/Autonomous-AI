@@ -9,6 +9,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import Thinking from "../../component/thinking/thinking";
+import { IconFlare } from "@tabler/icons-react";
 
 const useStyles = createStyles((theme) => ({
   thinking: {
@@ -40,7 +41,7 @@ const Generating = ({ messages }) => {
         </div>
       </div>
       <div
-        className={`${classes.thinking} w-full h-description rounded-3xl py-4 px-4 text-white border border-neutral-700 flex flex-col my-5 md:my-0`}
+        className={`${classes.thinking} w-full h-description rounded-3xl py-4 px-4 text-white border border-neutral-700 flex flex-col my-5 md:my-4`}
       >
         <p className="font-medium text-white text-sm sm:text-base">
           Chef - GPT
@@ -66,6 +67,18 @@ const Generating = ({ messages }) => {
         >
           <Thinking messages={messages} />
         </ScrollArea>
+      </div>
+      <div className="w-full h-generating-button flex items-end mt-5 md:mt-0">
+        <Button
+          // type = "submit"
+          // onClick={()=>setGenerating(true)}
+          color="indigo"
+          type="submit"
+          className="w-full bg-gradient-to-r from-violet-400 to-violet-500"
+        >
+          <IconFlare size={22} className="mr-2" />
+          Stop generating magic
+        </Button>
       </div>
     </div>
     // </Layout>

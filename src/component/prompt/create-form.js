@@ -7,7 +7,7 @@ import { IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
 import AutonomousAgent from "../../utils/AutonomousAgent";
 import { useLocalStorage } from "@mantine/hooks";
-import { notifications } from '@mantine/notifications';
+import { notifications } from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   goal: {
@@ -23,7 +23,6 @@ const CreateForm = ({
   cancel,
   setCancel,
   continousMode,
-  
 }) => {
   const { classes } = useStyles();
   // console.log(openAIKey)
@@ -38,7 +37,9 @@ const CreateForm = ({
     goals: Yup.array()
       .of(
         Yup.object({
-          goal: Yup.string("String required").min(3, "Minimum 3 letter").required(),
+          goal: Yup.string("String required")
+            .min(3, "Minimum 3 letter")
+            .required(),
         })
       )
       .min(1),
@@ -53,7 +54,7 @@ const CreateForm = ({
       agent: "",
       goals: [{ goal: "" }],
     },
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
   });
 
   const { fields, append, remove, update } = useFieldArray({
@@ -73,7 +74,7 @@ const CreateForm = ({
   // const [generating, setGenerating] = useState(true)
   const onSubmit = (data) => {
     console.log(data);
-    if(openAIKey){
+    if (openAIKey) {
       setValue(data);
       setGenerating(true);
       setMessages([]);
@@ -81,7 +82,8 @@ const CreateForm = ({
         data.goals?.map((item) => item?.goal).join("\n"),
         data.agent.trim(),
         data.role.trim(),
-        (value) => setMessages((prev) => prev?.length ? [...prev, value] : [value]),
+        (value) =>
+          setMessages((prev) => (prev?.length ? [...prev, value] : [value])),
         () => console.log("hell oworld"),
         openAIKey,
         cancel,
@@ -89,15 +91,14 @@ const CreateForm = ({
         continousMode
       );
       agent.run().then(console.log).catch(console.error);
-    }else{
+    } else {
       notifications.show({
-        title: 'OpenAI secret key',
-        message: 'You have to add your OpenAI secret key in settings',
-      }) 
+        title: "OpenAI secret key",
+        message: "You have to add your OpenAI secret key in settings",
+      });
     }
-    
   };
-  console.log(errors)
+  console.log(errors);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -178,7 +179,11 @@ const CreateForm = ({
                         color="indigo"
                         placeholder="Type here ..."
                         radius="md"
-                        error={errors?.goals?.length ? errors?.goals[index]?.goal?.message : ''}
+                        error={
+                          errors?.goals?.length
+                            ? errors?.goals[index]?.goal?.message
+                            : ""
+                        }
                         variant="unstyled"
                         onChange={onChange}
                         value={value}

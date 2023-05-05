@@ -38,14 +38,17 @@ body {
 
 .h-generating-button {
   height: 10%;
+  /* background-color: red; */
 }
 
 .h-description {
   height: 15%;
+  /* background-color: #7a73f3; */
 }
 
 .h-thinking {
-  height: 70%;
+  height: 65%;
+  /* background-color: green; */
 }
 @media (max-width: 768px) {
   .h-layout {
