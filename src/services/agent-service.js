@@ -4,6 +4,7 @@ import {
   executeTaskPrompt,
   createTasksPrompt,
   createCritisimPrompt,
+  testPrompt
 } from "../utils/prompts";
 // import type { ModelSettings } from "../utils/types";
 import { LLMChain } from "langchain/chains";
@@ -74,13 +75,22 @@ async function createCritisizm (modelSettings, goal, role){
   return completion.text
 }
 
+async function testAgent (modelSettings){
+  const completion = await new LLMChain({
+    llm:createModel(modelSettings),
+    prompt:testPrompt
+  }).call()
+  return completion.text
+}
+
 
 
 const OpenAIAgentService = {
   startGoalAgent: startGoalAgent,
   executeTaskAgent: executeTaskAgent,
   createTasksAgent: createTasksAgent,
-  createCritisizm: createCritisizm
+  createCritisizm: createCritisizm,
+  testAgent:testAgent
 };
 
 // const MockAgentService: AgentService = {

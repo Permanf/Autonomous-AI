@@ -20,7 +20,7 @@ export const extractTasks = (
         console.error("Error parsing the matched array:", error);
       }
     }
-  
+    return [inputStr]
     console.warn("Error, could not extract array from inputString:", inputStr);
     return [];
   };
@@ -40,3 +40,4 @@ export const extractTasks = (
     );
   };
   
+ 

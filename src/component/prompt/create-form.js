@@ -4,8 +4,8 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { IconTrash } from "@tabler/icons-react";
-import { useState } from "react";
-import AutonomousAgent from "../../utils/AutonomousAgent";
+import { useEffect, useState } from "react";
+import AutonomousAgent, { testConnection } from "../../utils/AutonomousAgent";
 import { useLocalStorage } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 
@@ -23,14 +23,17 @@ const CreateForm = ({
   cancel,
   setCancel,
   continousMode,
+  setAgent,
+  agentData,
+  setAgents,
+  setAgentData,
+  agents,
+  setAgentData2,
+  agent
 }) => {
   const { classes } = useStyles();
-  // console.log(openAIKey)
-  // const theme = useMantineTheme();
-  const [value, setValue] = useLocalStorage({
-    key: "sidebar",
-    defaultValue: "",
-  });
+ 
+  
   const schema = Yup.object().shape({
     agent: Yup.string("String required").min(3).required(),
     role: Yup.string("String required").min(3).required(),
@@ -47,6 +50,8 @@ const CreateForm = ({
   const {
     control,
     handleSubmit,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -56,7 +61,20 @@ const CreateForm = ({
     },
     resolver: yupResolver(schema),
   });
-
+  useEffect(()=>{
+    // console.log(agentData)
+    if(agentData?.agent ){
+      setValue("agent", agentData?.agent)
+      setValue("role", agentData?.role)
+      setValue("goals", agentData?.goals)
+      onSubmit(agentData)
+    }else{
+      setValue("agent", "")
+      setValue("role", "")
+      setValue("goals", [])
+    }
+  }, [agentData])
+  const [loading, setLoading] = useState(false)
   const { fields, append, remove, update } = useFieldArray({
     control,
     name: "goals",
@@ -73,10 +91,14 @@ const CreateForm = ({
   // console.log(errors)
   // const [generating, setGenerating] = useState(true)
   const onSubmit = (data) => {
-    console.log(data);
-    if (openAIKey) {
-      setValue(data);
+    setLoading(true);
+    setCancel(false);
+    testConnection(openAIKey).then(()=>{
+      setLoading(false);
+      localStorage.setItem("agents",JSON.stringify(agents?.length ? agents.concat(data) : [data]))
+      setAgents(agents?.length ? agents.concat(data): [data]);
       setGenerating(true);
+      setAgentData2(data)
       setMessages([]);
       const agent = new AutonomousAgent(
         data.goals?.map((item) => item?.goal).join("\n"),
@@ -84,21 +106,22 @@ const CreateForm = ({
         data.role.trim(),
         (value) =>
           setMessages((prev) => (prev?.length ? [...prev, value] : [value])),
-        () => console.log("hell oworld"),
         openAIKey,
         cancel,
         setCancel,
         continousMode
       );
+      setAgent(agent)
       agent.run().then(console.log).catch(console.error);
-    } else {
+    }).catch(e=>{
+      console.log(e)
+      setLoading(false)
       notifications.show({
         title: "OpenAI secret key",
-        message: "You have to add your OpenAI secret key in settings",
+        message: "Not valid OpenAI secret key",
       });
-    }
+    })
   };
-  console.log(errors);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -227,6 +250,7 @@ const CreateForm = ({
           // onClick={()=>setGenerating(true)}
           color="indigo"
           type="submit"
+          loading={loading}
           className="w-full bg-gradient-to-r from-violet-400 to-violet-500"
         >
           <IconFlare size={22} className="mr-2" />

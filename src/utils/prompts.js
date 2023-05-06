@@ -17,12 +17,13 @@ export const createModel = (customApiKey) => {
     openAIApiKey: customApiKey,
     temperature: 0.9,
     maxTokens: 400,
+    model:"gpt-4"
   });
 };
 
 export const startGoalPrompt = new PromptTemplate({
   template:
-    "You are an autonomous task creation AI called `{agent}`. You have the following objective `{goal}`. Create a list of zero to five tasks to be completed by your AI system such that your goal is more closely reached or completely reached. Return the response as an array of strings that can be used in JSON.parse() and NOTHING ELSE.",
+    "You are an autonomous task creation AI called `{agent}`. You have the following objective `{goal}`. Create a list of zero to five tasks to be completed by your AI system such that your goal is more closely reached or completely reached. Return the response as an array of strings that can be used in JSON.parse() and please NOTHING ELSE.",
   inputVariables: ["goal", "agent"],
 });
 
@@ -42,4 +43,10 @@ export const createCritisimPrompt = new PromptTemplate({
   template:
     "You are an AI task creation agent. You have the following objective `{goal}` and following role. Give me critisizm about this Agnet ",
   inputVariables: ["goal", "role"],
+});
+
+export const testPrompt = new PromptTemplate({
+  template:
+    "This is just the test",
+  inputVariables: [],
 });

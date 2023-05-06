@@ -10,7 +10,6 @@ class AutonomousAgent {
     agent;
     isRunning = true;
     renderMessage;
-    shutdown;
     openAIKey;
     maxLoops = 25;
     numLoops = 0;
@@ -18,14 +17,13 @@ class AutonomousAgent {
     setCancel;
     continousMode;
     
-    constructor ( goal, agent, role, renderMessage, shutdown, openAIKey, cancel, setCancel, continousMode){
+    constructor ( goal, agent, role, renderMessage,  openAIKey, cancel, setCancel, continousMode){
         this.goal = goal;
         this.agent = agent;
         this.role = role
         this.renderMessage = renderMessage;
-        this.shutdown = shutdown;
         this.openAIKey = openAIKey;
-        this.cancel = cancel;
+        this.isRunning = !cancel;
         this.setCancel = setCancel;
         this.continousMode = continousMode;
     }
@@ -33,6 +31,12 @@ class AutonomousAgent {
         // console.log(this.openAIKey)
         this.sendGoalMessage()
         this.sendThinkingMessage()
+        // try {
+        //     await testConnection(this.openAIKey)
+        // } catch (e) {
+        //     this.sendErrorMessage
+        // }
+
         const critism = await AgentService.createCritisizm(this.openAIKey, this.goal, this.role)
         // console.log(critism)
         this.sendCriticismMessage(critism)
@@ -58,10 +62,16 @@ class AutonomousAgent {
     sendCriticismMessage(critisizm){
         this.senddMessage({type:"criticism", value:critisizm})
     }
+    shutdown(){
+        this.setCancel(true);
+        this.senddMessage({type:"system", value:"Continious mode was stopped for you"})
+    }
     async loop (){
         console.log(this.numLoops)
         console.log(this.tasks)
+        console.log(this.isRunning)
         if (!this.isRunning) {
+            this.shutdown()
             return;
         }
       
@@ -133,7 +143,19 @@ class AutonomousAgent {
     sendThinkingMessage(){
         this.senddMessage({type:"think", value:"Thinking"})
     }
-
+    stopAgent() {
+        // this.sendManualShutdownMessage();
+        console.log("hello")
+        this.isRunning = false;
+        this.shutdown();
+        return;
+      }
 }
+
+export const testConnection = async (modelSettings) => {
+    // A dummy connection to see if the key is valid
+    // Can't use LangChain / OpenAI libraries to test because they have retries in place
+    return await AgentService.testAgent(modelSettings)
+  };
 
 export default AutonomousAgent;

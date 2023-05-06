@@ -1,4 +1,4 @@
-import Layout from "../../component/layout/layout";
+import Layout from "../layout/layout";
 import { Pencil, Trash } from "tabler-icons-react";
 import {
   Button,
@@ -8,7 +8,7 @@ import {
   createStyles,
   useMantineTheme,
 } from "@mantine/core";
-import Thinking from "../../component/thinking/thinking";
+import Thinking from "../thinking/thinking"
 import { IconFlare } from "@tabler/icons-react";
 
 const useStyles = createStyles((theme) => ({
@@ -18,7 +18,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const Generating = ({ messages }) => {
+const Generating = ({ messages, setCancel, generating, cancel, agent, setAgent , agentData2, agentData}) => {
   const { classes } = useStyles();
 
   return (
@@ -27,9 +27,9 @@ const Generating = ({ messages }) => {
       <div className="flex justify-between items-start w-full h-header">
         <div>
           <span className="text-xs sm:text-sm text-neutral-600">
-            Agent name
+            {agentData2.agent}
           </span>
-          <h1 className="font-medium text-white">Software Engineer</h1>
+          <h1 className="font-medium text-white">{agentData2.role}</h1>
         </div>
         <div className="flex items-center space-x-6 mt-2">
           <div className="w-8 h-8 bg-neutral-800 border border-neutral-700 text-neutral-400 flex justify-center items-center rounded-md cursor-pointer hover:text-white">
@@ -44,11 +44,10 @@ const Generating = ({ messages }) => {
         className={`${classes.thinking} w-full h-description rounded-3xl py-4 px-4 text-white border border-neutral-700 flex flex-col my-5 md:my-4`}
       >
         <p className="font-medium text-white text-sm sm:text-base">
-          Chef - GPT
+          {agentData2.agent}
         </p>
         <span className="text-xs sm:text-sm text-neutral-600">
-          Chef GPT is AI designed to browse the web to discover the next
-          upcoming evented invent a unique original recipie that would suite it
+          {agentData2.role}
         </span>
       </div>
       <div
@@ -73,10 +72,11 @@ const Generating = ({ messages }) => {
           // type = "submit"
           // onClick={()=>setGenerating(true)}
           color="indigo"
-          type="submit"
+          disabled ={cancel} 
+          onClick={()=>generating ? agent.stopAgent() : console.log("hellow ol")}
           className="w-full bg-gradient-to-r from-violet-400 to-violet-500"
         >
-          <IconFlare size={22} className="mr-2" />
+          <IconFlare  size={22} className="mr-2" />
           Stop generating magic
         </Button>
       </div>

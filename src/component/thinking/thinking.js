@@ -55,6 +55,19 @@ const Thinking = ({ messages }) => {
             </div>
           );
         }
+        if (item.type === "system") {
+          return (
+            <div
+              key={index}
+              className="flex flex-col border-b border-neutral-700 py-4 pt-0"
+            >
+              <span className="text-violet-700 text-xs sm:text-sm">
+                System
+              </span>
+              <p className="text-sm sm:text-base">{item.value}</p>
+            </div>
+          );
+        }
       })}
 
       {/* <div className="flex flex-col border-b border-neutral-700 py-4">

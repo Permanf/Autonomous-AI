@@ -61,23 +61,26 @@ const Sidebar = ({
   setOpened,
   setGenerating,
   agents,
+  agent,
   lang,
+  setAgentData,
   ...rest
 }) => {
   const theme = useMantineTheme();
   const [modal_opened, { open, close }] = useDisclosure(false);
   const { width } = useViewportSize();
   const { classes } = useStyles();
-  const [value, setValue] = useLocalStorage({
-    key: "sidebar",
-  });
-  console.log(value, "--s");
-  // const links = agents?.map((item) => (
-  //   // <LinksGroup {...item} key={item?.agent} />
-  //   // <div></div>
-  //   <></>
-  // ));
-  const links = <></>
+  
+  const links = agents?.map((item, index)=>(
+    <div key={index} className="cursor-pointer" 
+      onClick={()=>{
+        setAgentData(item);
+        setGenerating(false);
+        agent?.stopAgent()
+      }}>
+        {item.agent}
+      </div>
+  ))
 
   return (
     <Navbar
@@ -114,7 +117,7 @@ const Sidebar = ({
         <Button
           leftIcon={<IconPlus size="1rem" />}
           color="indigo"
-          onClick={() => setGenerating(false)}
+          onClick={() => {setGenerating(false); setAgentData({})}}
           className="w-full mt-6 bg-gradient-to-r from-violet-400 to-violet-500"
         >
           Create new agent
@@ -137,7 +140,7 @@ const Sidebar = ({
       </p>
       <Navbar.Section
         grow
-        className={classes.links}
+        className={"pt-3 flex flex-col items-center justify-center"}
         component={ScrollArea}
         scrollbarSize={8}
         styles={(theme) => ({
@@ -148,7 +151,7 @@ const Sidebar = ({
           },
         })}
       >
-        <div className={classes?.linksInner}>{links}</div>
+        <div className={"w-full  border-neutral-800 px-3 flex flex-col space-y-4 text-white"}>{links}</div>
       </Navbar.Section>
       <Navbar.Section
         className={`${classes.footer} pt-3 flex flex-col items-center justify-center`}
