@@ -35,14 +35,16 @@ export default function Home() {
     }
   }, [])
   useEffect(()=>{
-    console.log(agents);
-
+    // console.log(agents);
+    if(agents?.length){
+      localStorage.setItem("agents", JSON.stringify(agents))
+    }
   }, [agents])
   const [agent, setAgent] = useState(null)
   return (
-    <Layout agent={agent} agents={agents} setAgentData={setAgentData}  setGenerating = {setGenerating} openAIKey ={openAIKey} setOpenAIKey = {(value) => setOpenAIKey(value)}>
+    <Layout agent={agent} agents={agents} setAgents = {setAgents} setAgentData={setAgentData}  setGenerating = {setGenerating} openAIKey ={openAIKey} setOpenAIKey = {(value) => setOpenAIKey(value)}>
       {generating &&
-          <Generating generating={generating} agentData2={agentData2} setAgent={setAgent} agent={agent} setCancel = {setCancel} cancel={cancel} messages={messages} />
+          <Generating setGenerating={setGenerating} generating={generating} agentData2={agentData2} setAgent={setAgent} agent={agent} setCancel = {setCancel} cancel={cancel} messages={messages} />
       }
         <div className={`${generating && "hidden "} bg-dark-2 w-full h-layout rounded-3xl px-3 sm:px-6 py-4 text-white mt-2`}>
           <div className="flex flex-col sm:flex-row justify-between items-start w-full h-header border-b border-neutral-700 pb-4 md:py-0">

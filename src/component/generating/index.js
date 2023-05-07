@@ -18,7 +18,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const Generating = ({ messages, setCancel, generating, cancel, agent, setAgent , agentData2, agentData}) => {
+const Generating = ({ messages, setCancel, generating, setGenerating, cancel, agent, setAgent , setGeneratint, agentData2, agentData}) => {
   const { classes } = useStyles();
 
   return (
@@ -33,11 +33,18 @@ const Generating = ({ messages, setCancel, generating, cancel, agent, setAgent ,
         </div>
         <div className="flex items-center space-x-6 mt-2">
           <div className="w-8 h-8 bg-neutral-800 border border-neutral-700 text-neutral-400 flex justify-center items-center rounded-md cursor-pointer hover:text-white">
-            <Pencil size={19} />
+            <Pencil 
+              onClick={()=>{
+                if(generating){
+                  setGenerating(false)
+                  agent?.stopAgent()
+                }
+              }}
+            size={19} />
           </div>
-          <div className="w-8 h-8 bg-neutral-800 border border-neutral-700 text-neutral-400 flex justify-center items-center rounded-md cursor-pointer hover:text-red-600">
+          {/* <div className="w-8 h-8 bg-neutral-800 border border-neutral-700 text-neutral-400 flex justify-center items-center rounded-md cursor-pointer hover:text-red-600">
             <Trash size={19} />
-          </div>
+          </div> */}
         </div>
       </div>
       <div

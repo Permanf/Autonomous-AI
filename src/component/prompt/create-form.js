@@ -71,7 +71,7 @@ const CreateForm = ({
     }else{
       setValue("agent", "")
       setValue("role", "")
-      setValue("goals", [])
+      setValue("goals", [{goal:""}])
     }
   }, [agentData])
   const [loading, setLoading] = useState(false)
@@ -95,8 +95,9 @@ const CreateForm = ({
     setCancel(false);
     testConnection(openAIKey).then(()=>{
       setLoading(false);
-      localStorage.setItem("agents",JSON.stringify(agents?.length ? agents.concat(data) : [data]))
-      setAgents(agents?.length ? agents.concat(data): [data]);
+      // localStorage.setItem("agents",JSON.stringify(agents?.length ? agents.concat(data) : [data]))
+      if(!agentData?.agent)
+        setAgents(agents?.length ? agents.concat(data): [data]);
       setGenerating(true);
       setAgentData2(data)
       setMessages([]);
@@ -184,7 +185,7 @@ const CreateForm = ({
           })}
         >
           {fields.map((item, index) => (
-            <div className="pt-2 flex flex-col" key={index}>
+            <div className="pt-2 flex flex-col" key={item.id}>
               <div className="flex items-center space-x-3">
                 <div className="w-7 h-7 bg-neutral-800 flex justify-center items-center rounded-md text-xs">
                   {index + 1}
@@ -218,6 +219,7 @@ const CreateForm = ({
                   <IconTrash
                     onClick={() => {
                       if (fields.length !== 1) {
+                        console.log(index)
                         remove(index);
                       }
                     }}

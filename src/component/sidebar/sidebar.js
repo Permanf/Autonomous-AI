@@ -18,7 +18,7 @@ import {
 } from "@mantine/hooks";
 import { BrandDiscord, BrandTwitter, Help, Settings } from "tabler-icons-react";
 import Link from "next/link";
-import { IconPlus } from "@tabler/icons-react";
+import { IconPlus, IconTrash } from "@tabler/icons-react";
 // import LinksGroup from "./navbar-links-group";
 import ModalKey from "../ui/modal/modal";
 
@@ -63,6 +63,7 @@ const Sidebar = ({
   agents,
   agent,
   lang,
+  setAgents,
   setAgentData,
   ...rest
 }) => {
@@ -72,13 +73,25 @@ const Sidebar = ({
   const { classes } = useStyles();
   
   const links = agents?.map((item, index)=>(
-    <div key={index} className="cursor-pointer" 
-      onClick={()=>{
-        setAgentData(item);
-        setGenerating(false);
-        agent?.stopAgent()
-      }}>
-        {item.agent}
+    <div key={index} className="flex flex-row justify-between items-start" >
+        <p       
+          onClick={()=>{
+            setAgentData(item);
+            setGenerating(false);
+            agent?.stopAgent()
+          }}
+          className="cursor-pointer"
+      >
+          {item.agent}
+        </p>
+        <div className="w-6 h-6 bg-neutral-800 text-neutral-400 flex justify-center items-center rounded-md cursor-pointer hover:text-red-600">
+          <IconTrash
+            onClick={()=>{
+              setAgents(agents.filter((item2, index2) => index2!==index))
+            }}
+            size={16}
+          />
+        </div>
       </div>
   ))
 
