@@ -67,7 +67,7 @@ const CreateForm = ({
       setValue("agent", agentData?.agent)
       setValue("role", agentData?.role)
       setValue("goals", agentData?.goals)
-      onSubmit(agentData)
+      // onSubmit(agentData)
     }else{
       setValue("agent", "")
       setValue("role", "")
@@ -256,7 +256,7 @@ const CreateForm = ({
           className="w-full bg-gradient-to-r from-violet-400 to-violet-500"
         >
           <IconFlare size={22} className="mr-2" />
-          Start generating magic
+          Start 
         </Button>
       </div>
     </form>

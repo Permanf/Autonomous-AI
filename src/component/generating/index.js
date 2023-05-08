@@ -84,7 +84,7 @@ const Generating = ({ messages, setCancel, generating, setGenerating, cancel, ag
           className="w-full bg-gradient-to-r from-violet-400 to-violet-500"
         >
           <IconFlare  size={22} className="mr-2" />
-          Stop generating magic
+          Stop
         </Button>
       </div>
     </div>
