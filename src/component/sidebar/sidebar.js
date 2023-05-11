@@ -68,7 +68,7 @@ const Sidebar = ({
   ...rest
 }) => {
   const theme = useMantineTheme();
-  const [modal_opened, { open, close }] = useDisclosure(false);
+  const [modal_opened, { open, close }] = useDisclosure(true);
   const { width } = useViewportSize();
   const { classes } = useStyles();
   
@@ -123,7 +123,7 @@ const Sidebar = ({
             href="/"
             className="font-extrabold text-transparent text-xl bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-600 first-letter:uppercase"
           >
-            Autonomous AI
+            Autonomy GPT
           </Link>
           {/* <Code sx={{ fontWeight: 700 }}>v1.0.0</Code> */}
         </Group>

@@ -35,12 +35,12 @@ function ModalKey({ modal_opened, close, setOpenAIKey, openAIKey }) {
         }}
       >
         <p className="border-t border-neutral-700 py-4 text-sm sm:text-base">
-          Welcome to AgentGPT! We`&apos;`re receiving traffic far higher than our small
+          Welcome to AutonomyGPT! We`&apos;`re receiving traffic far higher than our small
           team is able to provide for at the moment.
         </p>
         <p className="text-sm sm:text-base">
           Because of this, we momentarily ask that users utilize their own
-          OpenAI API key for AgentGPT. This will only be used in the current
+          OpenAI API key for AutonomyGPT. This will only be used in the current
           browser session and not stored anywhere. If you elect not to, your
           agent will not be able to execute for very long. To do this, sign up
           for an OpenAI account and visit the following link.

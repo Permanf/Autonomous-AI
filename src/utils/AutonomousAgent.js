@@ -51,7 +51,7 @@ class AutonomousAgent {
             }
         } catch (e) {
             console.log(e)
-            this.shutdown()
+            this.shutdown("Error was occured and agent was stopped")
             return 1;
         }
         if(this.continousMode){
@@ -62,22 +62,22 @@ class AutonomousAgent {
     sendCriticismMessage(critisizm){
         this.senddMessage({type:"criticism", value:critisizm})
     }
-    shutdown(){
+    shutdown(message){
         this.setCancel(true);
-        this.senddMessage({type:"system", value:"Continious mode was stopped for you"})
+        this.senddMessage({type:"system", value:message})
     }
     async loop (){
         console.log(this.numLoops)
         console.log(this.tasks)
         console.log(this.isRunning)
         if (!this.isRunning) {
-            this.shutdown()
+            this.shutdown("Agent has been stopped ")
             return;
         }
       
         if (this.tasks.length === 0) {
             // this.sendCompletedMessage();
-            this.shutdown();
+            this.shutdown("Tasks was ended and agent did his job");
             console.log("shut down")
             return;
         }
@@ -85,7 +85,7 @@ class AutonomousAgent {
         if (this.numLoops > this.maxLoops) {
             this.sendLoopMessage();
             console.log("shut down")
-            this.shutdown();
+            this.shutdown("This agent has maxed out on loops. To save your wallet, this agent is shutting down. You can configure the number of loops in the advanced settings.");
             return;
         }
         this.completedTasks.push(this.tasks[0] || "");
@@ -102,7 +102,9 @@ class AutonomousAgent {
             await new Promise((r) => setTimeout(r, TIMOUT_SHORT));
             this.sendTaskMessage(task);
         }
-        await this.loop()
+        if(this.isRunning){
+            await this.loop()
+        }
     }
     async getAdditionalTasks (lastTask, result){
         return await AgentService.createTasksAgent(
@@ -147,7 +149,8 @@ class AutonomousAgent {
         // this.sendManualShutdownMessage();
         console.log("hello")
         this.isRunning = false;
-        this.shutdown();
+        const message= "You stoped agent"
+        this.shutdown(message);
         return;
       }
 }
