@@ -15,15 +15,16 @@ export default function App(props) {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
-        <Script
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-NDYT0JNEJ4"
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
+      </Head>
+      <Script
+        strategy="afterInteractive"
+        src="https://www.googletagmanager.com/gtag/js?id=G-NDYT0JNEJ4"
+      />
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
@@ -31,10 +32,8 @@ export default function App(props) {
             page_path: window.location.pathname,
           });
         `,
-          }}
-        />
-      </Head>
-
+        }}
+      />
       <MantineProvider
         theme={{
           colorScheme: "dark",
