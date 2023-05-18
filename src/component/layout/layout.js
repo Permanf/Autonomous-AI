@@ -4,7 +4,16 @@ import { useState } from "react";
 import Link from "next/link";
 import { Plus } from "tabler-icons-react";
 
-export default function Layout({ children,agent, agents, setAgents, setAgentData, openAIKey, setOpenAIKey, setGenerating }) {
+export default function Layout({
+  children,
+  agent,
+  agents,
+  setAgents,
+  setAgentData,
+  openAIKey,
+  setOpenAIKey,
+  setGenerating,
+}) {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
   const lang = "ru";
@@ -32,7 +41,7 @@ export default function Layout({ children,agent, agents, setAgents, setAgentData
           setAgents={setAgents}
           openAIKey={openAIKey}
           setGenerating={setGenerating}
-          setOpenAIKey={(value)=>setOpenAIKey(value)}
+          setOpenAIKey={(value) => setOpenAIKey(value)}
           opened={opened}
           setOpened={setOpened}
         />
@@ -53,7 +62,7 @@ export default function Layout({ children,agent, agents, setAgents, setAgentData
           href="/"
           className="font-extrabold text-transparent text-lg sm:text-xl bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-600 first-letter:uppercase"
         >
-          Autonomous AI
+          Autonomy GPT
         </Link>
         <ThemeIcon
           // size={30}

@@ -71,29 +71,29 @@ const Sidebar = ({
   const [modal_opened, { open, close }] = useDisclosure(true);
   const { width } = useViewportSize();
   const { classes } = useStyles();
-  
-  const links = agents?.map((item, index)=>(
-    <div key={index} className="flex flex-row justify-between items-start" >
-        <p       
-          onClick={()=>{
-            setAgentData(item);
-            setGenerating(false);
-            agent?.stopAgent()
-          }}
-          className="cursor-pointer"
+
+  const links = agents?.map((item, index) => (
+    <div key={index} className="flex flex-row justify-between items-start">
+      <p
+        onClick={() => {
+          setAgentData(item);
+          setGenerating(false);
+          agent?.stopAgent();
+        }}
+        className="cursor-pointer"
       >
-          {item.agent}
-        </p>
-        <div className="w-6 h-6 bg-neutral-800 text-neutral-400 flex justify-center items-center rounded-md cursor-pointer hover:text-red-600">
-          <IconTrash
-            onClick={()=>{
-              setAgents(agents.filter((item2, index2) => index2!==index))
-            }}
-            size={16}
-          />
-        </div>
+        {item.agent}
+      </p>
+      <div className="w-6 h-6 bg-neutral-800 text-neutral-400 flex justify-center items-center rounded-md cursor-pointer hover:text-red-600">
+        <IconTrash
+          onClick={() => {
+            setAgents(agents.filter((item2, index2) => index2 !== index));
+          }}
+          size={16}
+        />
       </div>
-  ))
+    </div>
+  ));
 
   return (
     <Navbar
@@ -130,13 +130,16 @@ const Sidebar = ({
         <Button
           leftIcon={<IconPlus size="1rem" />}
           color="indigo"
-          onClick={() => {setGenerating(false); setAgentData({})}}
+          onClick={() => {
+            setGenerating(false);
+            setAgentData({});
+          }}
           className="w-full mt-6 bg-gradient-to-r from-violet-400 to-violet-500"
         >
           Create new agent
         </Button>
       </Navbar.Section>
-      <Group position="right">
+      <Group position="right" className="mt-14 sm:mt-0">
         <MediaQuery largerThan="sm" styles={{ display: "none" }}>
           <Burger
             opened={opened}
@@ -164,7 +167,13 @@ const Sidebar = ({
           },
         })}
       >
-        <div className={"w-full  border-neutral-800 px-3 flex flex-col space-y-4 text-white"}>{links}</div>
+        <div
+          className={
+            "w-full  border-neutral-800 px-3 flex flex-col space-y-4 text-white"
+          }
+        >
+          {links}
+        </div>
       </Navbar.Section>
       <Navbar.Section
         className={`${classes.footer} pt-3 flex flex-col items-center justify-center`}
