@@ -6,7 +6,6 @@ import * as Yup from "yup";
 import { IconTrash } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import AutonomousAgent, { testConnection } from "../../utils/AutonomousAgent";
-import { useLocalStorage } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
@@ -29,11 +28,10 @@ const CreateForm = ({
   setAgentData,
   agents,
   setAgentData2,
-  agent
+  agent,
 }) => {
   const { classes } = useStyles();
- 
-  
+
   const schema = Yup.object().shape({
     agent: Yup.string("String required").min(3).required(),
     role: Yup.string("String required").min(3).required(),
@@ -61,20 +59,20 @@ const CreateForm = ({
     },
     resolver: yupResolver(schema),
   });
-  useEffect(()=>{
+  useEffect(() => {
     // console.log(agentData)
-    if(agentData?.agent ){
-      setValue("agent", agentData?.agent)
-      setValue("role", agentData?.role)
-      setValue("goals", agentData?.goals)
+    if (agentData?.agent) {
+      setValue("agent", agentData?.agent);
+      setValue("role", agentData?.role);
+      setValue("goals", agentData?.goals);
       // onSubmit(agentData)
-    }else{
-      setValue("agent", "")
-      setValue("role", "")
-      setValue("goals", [{goal:""}])
+    } else {
+      setValue("agent", "");
+      setValue("role", "");
+      setValue("goals", [{ goal: "" }]);
     }
-  }, [agentData])
-  const [loading, setLoading] = useState(false)
+  }, [agentData]);
+  const [loading, setLoading] = useState(false);
   const { fields, append, remove, update } = useFieldArray({
     control,
     name: "goals",
@@ -93,35 +91,38 @@ const CreateForm = ({
   const onSubmit = (data) => {
     setLoading(true);
     setCancel(false);
-    testConnection(openAIKey).then(()=>{
-      setLoading(false);
-      // localStorage.setItem("agents",JSON.stringify(agents?.length ? agents.concat(data) : [data]))
-      if(!agentData?.agent)
-        setAgents(agents?.length ? agents.concat(data): [data]);
-      setGenerating(true);
-      setAgentData2(data)
-      setMessages([]);
-      const agent = new AutonomousAgent(
-        data.goals?.map((item) => item?.goal).join("\n"),
-        data.agent.trim(),
-        data.role.trim(),
-        (value) =>
-          setMessages((prev) => (prev?.length ? [...prev, value] : [value])),
-        openAIKey,
-        cancel,
-        setCancel,
-        continousMode
-      );
-      setAgent(agent)
-      agent.run().then(console.log).catch(console.error);
-    }).catch(e=>{
-      console.log(e)
-      setLoading(false)
-      notifications.show({
-        title: "OpenAI secret key",
-        message: "Not valid OpenAI secret key",
+    testConnection(openAIKey)
+      .then(() => {
+        setLoading(false);
+        // localStorage.setItem("agents",JSON.stringify(agents?.length ? agents.concat(data) : [data]))
+        if (!agentData?.agent)
+          setAgents(agents?.length ? agents.concat(data) : [data]);
+        setGenerating(true);
+        setAgentData2(data);
+        setMessages([]);
+        const agent = new AutonomousAgent(
+          data.goals?.map((item) => item?.goal).join("\n"),
+          data.agent.trim(),
+          data.role.trim(),
+          (value) =>
+            setMessages((prev) => (prev?.length ? [...prev, value] : [value])),
+          openAIKey,
+          cancel,
+          setCancel,
+          continousMode
+        );
+        setAgent(agent);
+        agent.run().then(console.log).catch(console.error);
+      })
+      .catch((e) => {
+        console.log(e);
+        setLoading(false);
+        notifications.show({
+          color: "red",
+          title: "OpenAI secret key",
+          message: "Not valid OpenAI secret key",
+        });
       });
-    })
   };
   return (
     <form
@@ -219,7 +220,7 @@ const CreateForm = ({
                   <IconTrash
                     onClick={() => {
                       if (fields.length !== 1) {
-                        console.log(index)
+                        console.log(index);
                         remove(index);
                       }
                     }}
@@ -256,7 +257,7 @@ const CreateForm = ({
           className="w-full bg-gradient-to-r from-violet-400 to-violet-500"
         >
           <IconFlare size={22} className="mr-2" />
-          Start 
+          Start
         </Button>
       </div>
     </form>
